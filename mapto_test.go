@@ -1,28 +1,22 @@
 package mapto
 
 import (
+	"github.com/juntaki/mapto/testpkg"
 	"github.com/juntaki/pp"
 	"reflect"
 	"testing"
 )
 
 func TestMapBasic(t *testing.T) {
-	type srcStruct struct {
-		p1 string
-		p2 int
-	}
-	src := &srcStruct{
-		p1: "p1",
-		p2: 1,
-	}
+	src := testpkg.NewSrcStruct("p1")
 	type destStruct struct {
 		P1 string `mapto:"p1"`
-		P2 int `mapto:"p2"`
+		P2 int    `mapto:"p2"`
 	}
 	dest := &destStruct{}
 	want := &destStruct{
 		P1: "p1",
-		P2: 1,
+		P2: 0,
 	}
 	Map(dest, src)
 	if !reflect.DeepEqual(dest, want) {
